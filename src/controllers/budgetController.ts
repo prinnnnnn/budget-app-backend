@@ -25,7 +25,7 @@ export const getAllBudgets = async (req: Request, res: Response) => {
 /* GET - /:userId */
 export const getBudgetsByUser = async (req: Request, res: Response) => {
 
-    console.log(`Retreving all budgets...`);
+    console.log(`Retreving all budgets of a user...`);
 
     try {
 
@@ -44,6 +44,27 @@ export const getBudgetsByUser = async (req: Request, res: Response) => {
         return res.sendStatus(400);
     }
 
+}
+
+/* GET - /single/:budgetId */
+export const getBudgetById = async (req: Request, res: Response) => {
+
+    console.log(`Retrieving a budget by ID...`);
+
+    try {
+
+        const budgetId = req.params.budgetId;
+        const budget = await Budget.findById(budgetId);
+
+        if (!budget) return res.sendStatus(404);
+
+        return res.status(200).send(budget.toJSON());
+        
+    } catch (error) {
+        console.error('Error retrieving budget by ID');
+        return res.sendStatus(400);
+    }
+    
 }
 
 /* POST - /:userId */

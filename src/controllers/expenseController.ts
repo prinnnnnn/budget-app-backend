@@ -23,10 +23,31 @@ export const getAllExpenses = async (req: Request, res: Response) => {
 
 }
 
-/* GET - /:budgetId */
+/* GET - user/:userId */
+export const getAllUserExpenses = async (req: Request, res: Response) => {
+
+    console.log(`Retrieving all expenses by user...`);
+
+    try {
+
+        const userId = req.params.userId;
+        const expenses = await Expense.find({ userId: userId });
+
+        if (!expenses) return res.sendStatus(404);
+
+        return res.status(200).send(expenses);
+        
+    } catch (error) {
+        console.error(`Error retreving expenses by user...`);
+        return res.sendStatus(400);
+    }
+    
+}
+
+/* GET - budget/:budgetId */
 export const getExpensesByBudget = async (req: Request, res: Response) => {
 
-    console.log(`Retreving all expenses...`);
+    console.log(`Retreving all expenses by budget type...`);
 
     try {
         
@@ -48,6 +69,8 @@ export const getExpensesByBudget = async (req: Request, res: Response) => {
 
 /* POST - /:budgetId */
 export const createExpense = async (req: Request, res: Response) => {
+
+    console.log(`Creating a new expense...`)
 
     try {
 
