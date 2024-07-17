@@ -4,7 +4,7 @@ import { createBudget, getAllBudgets, getBudgetsByUser } from "../controllers/bu
 const router = Router();
 
 router.get("/", getAllBudgets);
-router.get("/:name", getBudgetsByUser);
-router.post("/:name", createBudget);
+router.get("/:userId", getBudgetsByUser);
+router.post("/:userId", createBudget);
 
 export default router;

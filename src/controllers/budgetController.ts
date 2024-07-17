@@ -22,21 +22,18 @@ export const getAllBudgets = async (req: Request, res: Response) => {
 
 }
 
-/* GET - /:name */
+/* GET - /:userId */
 export const getBudgetsByUser = async (req: Request, res: Response) => {
 
     console.log(`Retreving all budgets...`);
 
     try {
 
-        const username = req.params.name;
-        const user = await User.findOne({ name: username });
+        const userId = req.params.userId;
 
-        if (!user) {
+        if (!userId) {
             return res.sendStatus(404);
         }
-
-        const userId = user._id;
 
         const budgets = await Budget.find({ userId: userId });
 
@@ -49,34 +46,37 @@ export const getBudgetsByUser = async (req: Request, res: Response) => {
 
 }
 
-/* POST - /:name */
+/* POST - /:userId */
 export const createBudget = async (req: Request, res: Response) => {
 
     console.log(`Creating new budget...`);
 
     try {
 
-        const username = req.params.name;
+        const userId = req.params.userId;
 
-        const user = await User.findOne({ name: username });
+        const user = await User.findById(userId);
 
         if (!user) {
             return res.sendStatus(404);
         }
 
-        const userId = user._id
+        const numBudgets = user.budgetsCount;
 
         const newBudget = new Budget({
             userId: userId,
-            ...req.body
+            createdAt: Date.now(),
+            color: `${numBudgets * 34} 65% 50%`,
+            ...req.body /* titles and amount of budget */
         });
 
         await newBudget.save();
+        await User.findByIdAndUpdate(user._id, { budgetsCount: numBudgets + 1});
 
         return res.status(200).send(newBudget.toJSON());
 
     } catch (error) {
-        console.error(`Error creating new budget`);
+        console.error(`Error creating new budget\n${error}`);
         return res.sendStatus(400);
     }
 

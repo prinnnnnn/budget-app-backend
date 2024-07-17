@@ -31,6 +31,6 @@ const BudgetSchema: Schema = new Schema({
     "color": { type: String, required: true}
 })
 
-const BudgetModel = model<Budget>("Budget", BudgetSchema, "Budget");
+const BudgetModel = model<Budget>("Budgets", BudgetSchema);
 
 export default BudgetModel;

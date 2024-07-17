@@ -45,3 +45,27 @@ export const getExpensesByBudget = async (req: Request, res: Response) => {
     }
     
 }
+
+/* POST - /:budgetId */
+export const createExpense = async (req: Request, res: Response) => {
+
+    try {
+
+        const budgetId = req.params.budgetId;
+
+        const newExpense = new Expense({
+            budgetId: budgetId,
+            createdAt: Date.now(),
+            ...req.body // title, amount
+        });
+
+        await newExpense.save();
+
+        return res.status(200).send(newExpense.toJSON());
+        
+    } catch (error) {
+        console.error(`Error creating expense\n${error}`);
+        return res.sendStatus(400);
+    }
+
+}

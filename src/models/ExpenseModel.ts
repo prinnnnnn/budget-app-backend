@@ -19,7 +19,7 @@ import { Document, Schema, model } from "mongoose";
 interface Expense extends Document {
     userId: string,
     budgetId: string,
-    category: string,
+    // category: string,
     title: string,
     amount: number,
     createdAt: string
@@ -28,11 +28,12 @@ interface Expense extends Document {
 const ExpenseSchema: Schema = new Schema({
     "userId": { type: String, required: true },
     "budgetId": { type: String, required: true },
+    // "category": { type: String, required: true },
     "title": { type: String, required: true },
     "amount": { type: Number, required: true},
     "createdAt": { type: String, required: true }
 });
 
-const ExpenseModel = model<Expense>("Expense", ExpenseSchema, "Expense");
+const ExpenseModel = model<Expense>("Expenses", ExpenseSchema);
 
 export default ExpenseModel;

@@ -14,13 +14,15 @@ import { Document, Schema, model } from "mongoose";
 */
 
 interface User extends Document<string> {
-    name: string
+    name: string,
+    budgetsCount: number
 }
 
 const UserSchema: Schema = new Schema({
-    "name": { type: String, required: true }
+    "name": { type: String, required: true },
+    "budgetsCount": { type: Number, required: true }
 });
 
-const UserModel = model<User>("User", UserSchema, "User");
+const UserModel = model<User>("Users", UserSchema);
 
 export default UserModel;
