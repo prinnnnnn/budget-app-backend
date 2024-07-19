@@ -1,11 +1,15 @@
 import { Router } from "express";
-import { createBudget, getAllBudgets, getBudgetsByUser } from "../controllers/budgetController";
+import { createBudget,
+         getAllBudgets,
+         getBudgetById, 
+         getBudgetsByUser } from "../controllers/budgetController";
 
 const router = Router();
 
 router.get("/", getAllBudgets);
 router.get("/:userId", getBudgetsByUser);
-router.get("/single/:budgetId", );
+router.get("/single/:budgetId", getBudgetById);
 router.post("/:userId", createBudget);
+router.delete("/:budgetId", deleteBudgetId);
 
 export default router;

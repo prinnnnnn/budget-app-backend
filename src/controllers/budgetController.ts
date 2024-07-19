@@ -102,3 +102,23 @@ export const createBudget = async (req: Request, res: Response) => {
     }
 
 }
+
+/* DELETE - /:budgetId */
+export const deleteBudgetId = async (req: Request, res: Response) => {
+
+    console.log(`Deleting budget by its ID...`);
+
+    try {
+
+        const budgetId = req.params.budgetId;
+
+        await Budget.findByIdAndDelete(budgetId);
+
+        return res.sendStatus(200);
+        
+    } catch (error) {
+        console.error(`Error deleting budget by its ID\n${error}`);
+        return res.sendStatus(400);
+    }
+
+}

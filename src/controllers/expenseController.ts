@@ -92,3 +92,43 @@ export const createExpense = async (req: Request, res: Response) => {
     }
 
 }
+
+/* DELETE - /group/:budgetId */
+export const deleteExpensesByBudget = async (req: Request, res: Response) => {
+    
+    console.log(`Deleting expenses by budget category...`);
+
+    try {
+
+        const budgetId = req.params.budgetId;
+
+        await Expense.deleteMany({ budgetId: budgetId });
+
+        return res.sendStatus(200);
+        
+    } catch (error) {
+        console.error(`Error deleting expenses by budget category\n${error}`);
+        return res.sendStatus(400);
+    }
+
+}
+
+/* DELETE - /single/:expenseId */
+export const deleteExpenseById = async (req: Request, res: Response) => {
+
+    console.log(`Deleting an expense via its ID...`);
+
+    try {
+        
+        const expenseId = req.params.expenseId;
+
+        await Expense.findByIdAndDelete(expenseId);
+
+        return res.sendStatus(200);
+
+    } catch (error) {
+        console.error(`Error deleting an expense by its ID\n${error}`);
+        return res.sendStatus(400);
+    }
+
+}
