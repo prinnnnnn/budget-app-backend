@@ -22,7 +22,7 @@ interface Expense extends Document {
     // category: string,
     title: string,
     amount: number,
-    createdAt: string
+    createdAt: number
 }
 
 const ExpenseSchema: Schema = new Schema({
@@ -31,7 +31,7 @@ const ExpenseSchema: Schema = new Schema({
     // "category": { type: String, required: true },
     "title": { type: String, required: true },
     "amount": { type: Number, required: true},
-    "createdAt": { type: String, required: true }
+    "createdAt": { type: Number, required: true }
 });
 
 const ExpenseModel = model<Expense>("Expenses", ExpenseSchema);

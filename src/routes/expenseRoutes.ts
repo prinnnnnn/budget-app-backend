@@ -13,6 +13,6 @@ router.get("/user/:userId", getAllUserExpenses);
 router.get("/budget/:budgetId", getExpensesByBudget);
 router.post("/:budgetId", createExpense);
 router.delete("/group/:budgetId", deleteExpensesByBudget);
-router.delete("/single/:expenseId", deleteExpenseById);
+router.delete("/:expenseId", deleteExpenseById);
 
 export default router;

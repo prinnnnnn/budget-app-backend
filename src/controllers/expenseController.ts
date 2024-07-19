@@ -113,7 +113,7 @@ export const deleteExpensesByBudget = async (req: Request, res: Response) => {
 
 }
 
-/* DELETE - /single/:expenseId */
+/* DELETE - /:expenseId */
 export const deleteExpenseById = async (req: Request, res: Response) => {
 
     console.log(`Deleting an expense via its ID...`);
