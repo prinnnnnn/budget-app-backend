@@ -88,6 +88,7 @@ export const createBudget = async (req: Request, res: Response) => {
             userId: userId,
             createdAt: Date.now(),
             color: `${numBudgets * 34} 65% 50%`,
+            totalSpent: 0,
             ...req.body /* titles and amount of budget */
         });
 
@@ -104,7 +105,7 @@ export const createBudget = async (req: Request, res: Response) => {
 }
 
 /* DELETE - /:budgetId */
-export const deleteBudgetId = async (req: Request, res: Response) => {
+export const deleteBudgetById = async (req: Request, res: Response) => {
 
     console.log(`Deleting budget by its ID...`);
 

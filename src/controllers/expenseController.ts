@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Expense from "../models/ExpenseModel";
+import Budget from "../models/budgetModel";
 
 /* GET - / */
 export const getAllExpenses = async (req: Request, res: Response) => {
@@ -73,8 +74,13 @@ export const createExpense = async (req: Request, res: Response) => {
     console.log(`Creating a new expense...`)
 
     try {
-
         const budgetId = req.params.budgetId;
+
+        const budget = await Budget.findById(budgetId);
+
+        if (!budget) {
+            return res.sendStatus(404);
+        }
 
         const newExpense = new Expense({
             budgetId: budgetId,
@@ -83,6 +89,10 @@ export const createExpense = async (req: Request, res: Response) => {
         });
 
         await newExpense.save();
+
+        budget.totalSpent += newExpense.amount;
+
+        await budget.save();
 
         return res.status(200).send(newExpense.toJSON());
         
@@ -121,8 +131,22 @@ export const deleteExpenseById = async (req: Request, res: Response) => {
     try {
         
         const expenseId = req.params.expenseId;
+        
+        const expense = await Expense.findByIdAndDelete(expenseId);
 
-        await Expense.findByIdAndDelete(expenseId);
+        if (!expense) {
+            return res.sendStatus(404);
+        }
+
+        const budget = await Budget.findById(expense.budgetId);
+
+        if (!budget) {
+            return res.sendStatus(404);
+        }
+
+        budget.totalSpent -= expense.amount;
+
+        await budget.save();
 
         return res.sendStatus(200);
 

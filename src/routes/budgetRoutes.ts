@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createBudget,
-         deleteBudgetId,
+         deleteBudgetById,
          getAllBudgets,
          getBudgetById, 
          getBudgetsByUser } from "../controllers/budgetController";
@@ -11,6 +11,6 @@ router.get("/", getAllBudgets);
 router.get("/:userId", getBudgetsByUser);
 router.get("/single/:budgetId", getBudgetById);
 router.post("/:userId", createBudget);
-router.delete("/:budgetId", deleteBudgetId);
+router.delete("/:budgetId", deleteBudgetById);
 
 export default router;

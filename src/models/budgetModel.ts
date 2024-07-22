@@ -20,7 +20,8 @@ interface Budget extends Document {
     title: string,
     amount: number,
     createdAt: string,
-    color: string
+    color: string,
+    totalSpent: number
 }
 
 const BudgetSchema: Schema = new Schema({
@@ -28,7 +29,8 @@ const BudgetSchema: Schema = new Schema({
     "title": { type: String, required: true },
     "amount": { type: Number, required: true},
     "createdAt": { type: Number, required: true },
-    "color": { type: String, required: true}
+    "color": { type: String, required: true},
+    "totalSpent": { type: Number, required: true }
 })
 
 const BudgetModel = model<Budget>("Budgets", BudgetSchema);

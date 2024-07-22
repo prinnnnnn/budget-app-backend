@@ -14,7 +14,7 @@ import { Document, Schema, model } from "mongoose";
 */
 
 interface User extends Document<string> {
-    name: string,
+    name: string
     budgetsCount: number
 }
 
